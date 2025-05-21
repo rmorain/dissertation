@@ -2,7 +2,7 @@
 \usepackage[
     bookmarks=true,
     bookmarksnumbered=true,
-    breaklinks=false,
+    breaklinks=true,
     raiselinks=true,
     pdfborder={0 0 0},
     colorlinks=false,
@@ -666,7 +666,7 @@ This would explain why including additional semantic information provides a usef
 This is further demonstrated by the fact that the min attention entity generally outperformed max and median attention entities.
 Assuming that the min attention entity is deemed least important by GPT-2, the added knowledge for this entity appears to give new relevance to overlooked or unfamiliar data.
 
-Another way to think about knowledge augmentation is as a form of prompt engineering---where a prompt is automatically generated to help the model with the task at hand.
+Another way to think about knowledge augmentation is as a form of prompt engineering -- where a prompt is automatically generated to help the model with the task at hand.
 
 In these experiments, the entity identification, selection, and knowledge extraction process is relatively simple.
 In future work, this entire process would be self-directed where a single model learns to use the knowledge base to best suit the task at hand. 
@@ -1302,7 +1302,7 @@ During the workshop, participants demonstrated the ability to successfully and r
     
 Motivated by the positive experiences of the workshop participants and graduate student study participants, this paper addresses the need for expanded access to game-based creative evaluation metrics by publishing this open-source resource for building and evaluating agents that play Codenames. We anticipate that this resource will serve the research community in many ways, and we put forward these two use cases as examples of its utility. We have found that the game's engaging nature draws people in, sparks ideas, and motivates them to design agents to play it. This framework leverages those unique qualities to make the development process both enjoyable and effective in research and pedagogical settings.
 
-This paper contains a report on the workshop, a description of the Codenames framework and web application, the results of the study, and discussion of future use cases and applications. By providing a practical tool for game-based creativity research, this work aims to expand access to well-defined evaluation metrics and encourage further exploration of competitive language games as a testbed for CC systems. All of the code used for this paper is available on GitHub.\footnote{\url{https://github.com/rmorain/codenames-ai-client} and \url{ https://github.com/rmorain/codenames-workshop}.}
+This paper contains a report on the workshop, a description of the Codenames framework and web application, the results of the study, and discussion of future use cases and applications. By providing a practical tool for game-based creativity research, this work aims to expand access to well-defined evaluation metrics and encourage further exploration of competitive language games as a testbed for CC systems. All of the code used for this paper is available on GitHub.\footnote{\url{https://github.com/rmorain/codenames-ai-client} \\\indent\indent\url{https://github.com/rmorain/codenames-workshop}}
 
 
 \section{Workshop Report}
@@ -1609,16 +1609,33 @@ Artifact evaluation is an essential part of the prompt scoring procedure in OPRO
 
 \begin{figure}[t]
     \begin{tcolorbox}[title=Prompt, colback=lightgray!10, colframe=black!75, fontupper=\small]
-    ``You are an expert in humor. You are a critical judge who is difficult to please but still fair.
-    \newline\newline
-    How strongly do you feel about the following statement?\newline\newline
-    \textbf{This joke is funny.}\newline\newline
-    
+    You are an expert in humor. You are a critical judge who is difficult to please but still fair.
+
+    \
+
+
+    How strongly do you feel about the following statement?
+
+    \
+
+
+    \textbf{This joke is funny.}
+
+    \
+
+
     Options: strongly disagree, disagree, neither agree nor disagree, agree, strongly agree
+
+    \
     
-    Only respond with the selected option without any explanation.\newline\newline
+
+    Only respond with the selected option without any explanation.
     Here is the joke:
-    \textless INS\textgreater''
+
+    \
+
+
+    \textless INS\textgreater
     \end{tcolorbox}
 \caption{Automated evaluation prompt for joke quality.} 
 \label{fig:prompt}
@@ -1626,7 +1643,7 @@ Artifact evaluation is an essential part of the prompt scoring procedure in OPRO
 
 \begin{table*}[t!]
 \centering
-\begin{tabular}{|p{0.15\textwidth}|p{0.8\textwidth}|}
+\begin{tabular}{|p{0.15\columnwidth}|p{0.75\columnwidth}|}
 \hline
 \textbf{Domain} & \textbf{Prompt} \\
 \hline
@@ -1634,7 +1651,7 @@ Joke & Write a joke. The joke must be completely new and original to you. The jo
 \hline
 Poem & Write a poem. The poem must be completely new and original to you. The poem must be less than 500 characters long. \\
 \hline
-Six-word story & Write a six-word story. The six-word story must be completely new and original to you. The six-word story must be exactly six words long.\\
+Six-word story & Write a six-word story. The six-word story must be completely new and original to you. The six-word story must be exactly six words long. \\
 \hline
 Flash fiction & Write a flash fiction story. The flash fiction story must be completely new and original to you. The story must be less than 1000 characters long. \\
 \hline
@@ -1688,7 +1705,7 @@ $s \leftarrow \frac{q + n + c}{3}$\;
 
 \begin{table*}[t!]
 \centering
-\begin{tabular}{|p{0.15\textwidth}|p{0.8\textwidth}|}
+\begin{tabular}{|p{0.15\textwidth}|p{0.75\textwidth}|}
 \hline
 \textbf{Domain} & \textbf{Prompt} \\
 \hline
@@ -1779,7 +1796,7 @@ Initialize $TopPrompts$ as empty list\;
 
 \begin{table*}[t!]
 \centering
-\begin{tabular}{|p{0.15\textwidth}|p{0.8\textwidth}|}
+\begin{tabular}{|p{0.15\textwidth}|p{0.75\textwidth}|}
 \hline
 \textbf{Domain} & \textbf{Prompt} \\
 \hline
