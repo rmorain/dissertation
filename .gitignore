@@ -7,7 +7,7 @@
 *.fls
 *.blg
 *.bbl
-*.pdf
+# *.pdf
 *.dvi
 *.lof
 *.lot
