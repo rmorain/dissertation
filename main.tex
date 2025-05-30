@@ -176,10 +176,74 @@ legend image code/.code={
 \microtypesetup{protrusion=true}
 
 \chapter{Introduction} 
+\label{chap:intro}
 
-Introduction goes here.
+Creativity lies at the heart of human intelligence.
+Wiggins observes that “the zenith of human intelligence is often portrayed as the ability to create…radically new and/or surprising things” and argues that creativity should be “a primary determiner of human intelligence” (Wiggins 2006).
+This is evidenced by the role human creativity plays in society by enabling artistic expression, generating new ideas, and solving complex problems across domains such as science, mathematics, and engineering.
+While the personal and subjective nature of creativity makes it difficult to define in precise cognitive or scientific terms (Boden 92, Wiggins 2006), it remains universally recognized and deeply valued as fundamental to the human experience.
+
+In computer science, the artificial intelligence (AI) research community attempts to develop machines capable of emulating human intelligence.
+Through machine learning, models can process data and perform well-defined tasks, many of which were once considered exclusive to humans.
+While the methods for achieving these goals have evolved (Schmidhuber 2022), the fundamental ambition of the AI research community remains to develop systems that approach or surpass human-level intelligence across a wide range of tasks.
+
+Recently, advancements in AI technologies including large language models (LLMs) like ChatGPT (OpenAI 2023) are rapidly reshaping modern life, including how people work, communicate, learn, and express themselves (Pew Research Center 2023). 
+While this era of rapidly emerging technology is ongoing and the future consequences remain uncertain, it is clear that lasting societal change is inevitable.
+However, given the far-reaching impact AI is poised to make on society, it is crucial to guide this technology’s development toward the correct goals. 
+
+While creativity is essential to human and artificial intelligence, its subjective nature poses unique challenges for AI.
+Unlike more traditional AI tasks that possess well-defined objectives, creative tasks often rely on measures of inherently subjective creative attributes such as quality, novelty, typicality, and surprise (Ritchie 2007; Pease and Colton 2011b; Jordanous 2012; Bown 2014; Lamb, Brown, and Clarke 2015; Ventura 2016; Carnovalini et al. 2021; Peeperkorn, Brown, and Jordanous 2023). 
+Because machines lack the same level of human experience that comes from embodiment, generating artifacts aligned with human preferences is particularly difficult for machines. 
+Yet despite these challenges, the use of AI for creative purposes has grown significantly. 
+Today, people use AI to generate images (OpenAI 2023), music (Agostinelli et al. 2023), poetry (Ormazabal 2022), stories (Fan 2018), and more.
+
+The computational creativity (CC) research community is dedicated to developing autonomous creative systems and creativity support tools.
+Topics include CC systems, evaluation methods, co-creative systems, and philosophical questions about the nature and limits of machine creativity.
+Systems developed in this domain include those that generate jokes, paintings, recipes, short stories, and other creative artifacts.
+This dissertation also centers on language models, which are foundational to much of the recent progress in AI.
+A language model represents the structure of a language and can be used to perform various linguistic tasks.
+Formally, a statistical language model estimates the probability of a sequence of tokens, often via the chain rule:
+
+\[
+f(x) = \prod p(x_t \mid x_{<t})
+\]
+
+Early models such as n-grams and Markov chains evolved into neural approaches like LSTMs, and eventually into transformer-based architectures, which support large-scale parallelization and scaling.
+Transformers have since been trained to follow instructions and generate responses aligned with human preferences. 
+
+LLMs are viewed by many as a critical path toward achieving artificial general intelligence (AGI) systems that rival or exceed human-level performance across a wide array of intellectual and creative domains (Morris 2024). 
+The emergence of these models raises pressing questions about their capacity for general intelligence and for creativity. 
+This dissertation aims to contribute to the broader pursuit of artificial general intelligence by proposing methods to improve and evaluate the creative capabilities of LLMs. 
+This raises fundamental questions about the purpose of developing creative AI. 
+While some fear that creative AI could diminish human uniqueness or reduce opportunities for personal expression, it is worth noting that creativity plays a role not only in the arts but also in fields like science, technology, and business. 
+Moreover, creativity is already commodified in many domains such as marketing and Hollywood, where the artistic product is produced primarily to satisfy market demands rather than for personal satisfaction. 
+In such cases, using AI to enhance or replace creative labor is not unlike automating less artistic domains such as software engineering or customer service. 
+Additionally, AI can democratize creativity by lowering barriers so that anyone, regardless of artistic skill, can bring their ideas to life.
+
+This dissertation presents a body of work designed to further the goal of developing artificial general intelligence through the development of methods for improving and evaluating the creative capabilities of LLMs. 
+To approach this vision, two subgoals must be addressed:
+\begin{enumerate}
+    \item Improving the capabilities of LLMs for creative tasks.
+    \item Developing effective methods for evaluating the creativity of LLMs
+\end{enumerate}
+
+Accordingly, the chapters of this dissertation fall into two broad categories: model development and frameworks (Chapters 1–4), and evaluation and analysis (Chapters 5–6).
+\begin{itemize}
+    \item Chapter \ref{chap:ssm} introduces an external knowledge retrieval mechanism for LLMs, inspired by symbolic memory in human cognition. This approach enables the integration of structured semantic data to support creative generation beyond what is encoded in model parameters.
+    \item Chapter \ref{chap:bbc} presents a black-box control method for LLMs using reward-driven prefix conditioning. This allows users to influence model behavior through control instructions, even without internal access to model parameters.
+    \item Chapter \ref{chap:codenames} outlines a framework for creative agent development using the game Codenames. Results demonstrate the framework’s effectiveness in streamlining creative agent prototyping and testing in both research and educational settings. 
+    \item Chapter \ref{chap:llmexica} introduces a method for building symbolic knowledge bases for narrative generation through automatic extraction of story actions along with their corresponding preconditions and postconditions from text. This work emphasizes the relationship between generative and symbolic AI approaches.
+    \item Chapter \ref{chap:chatgpt_for_cc} compares ChatGPT’s creative output to traditional, domain-specific CC systems. Results show that ChatGPT outperforms these systems across various tasks, though room for improvement remains.
+    \item Chapter \ref{chap:cc_prompting} evaluates several prompting methods for creative generation. Surprisingly, more complex methods (e.g., OPRO, chain-of-thought prompting) do not significantly outperform basic prompts. These findings highlight limitations in LLMs ability to automatically evaluate artifacts.
+\end{itemize}
+
+In summary, creativity is a critical aspect of intelligence that requires targeted research, especially as we pursue the goal of artificial general intelligence. 
+This dissertation contributes to that pursuit by proposing new tools, frameworks, and evaluation methods for modeling and assessing creativity in LLMs. 
+Ultimately, creative AI has the potential not only to replicate human ingenuity, but to amplify it by enabling new forms of self-expression and idea generation that would be impossible otherwise.
+
 
 \chapter{Symbolic Semantic Memory in Transformer Language Models} 
+\label{chap:ssm}
 
 I hereby confirm that the use of this article is compliant with all publishing agreements.
 
@@ -204,7 +268,7 @@ These methods also significantly outperform common ways of improving language mo
 
 
 \section{Introduction}
-Currently, transformer language models are the gold standard \footnote{The top 10 models on SuperGLUE's \cite{wang2019superglue} leaderboard are all transformer-based models} for most language tasks. 
+Currently, transformer language models are the gold standard\footnote{The top 10 models on SuperGLUE's~\cite{wang2019superglue} leaderboard are all transformer-based models} for most language tasks.
 The strength of these models comes from their extensive pretraining on statistical language modeling tasks.
 
 In recent years, many improvements have been made to transformer language models.
@@ -524,7 +588,7 @@ In fact, the knowledge augmentation is more effective than increasing the model 
 \end{figure}
 
 Figure \ref{fig:higher-order} shows the validation perplexity for each combination of knowledge augmentation strategies. 
-As discussed previously, the best first order reduction, min attention,  decreases the validation perplexity by by 70.29\%.
+As discussed previously, the best first order reduction, min attention,  decreases the validation perplexity by 70.29\%.
 The best second order combination of min and max attention improves over min attention by another 7.37\%.
 Finally, the combination of min, median, and max attention knowledge improves over min\_max attention by an additional 3.37\% for a total of 81.04\% improvement over the baseline.
 This demonstrates that a higher quantity of added semantic information consistently results in better generalization.
@@ -678,6 +742,7 @@ The principles discussed in this work will directly enable ways of biasing langu
 Code for this work is available at \url{https://github.com/rmorain/symbolic_semantic_mem}.
 
 \chapter{Are Language Models Unsupervised Multi-domain CC Systems?} 
+\label{chap:chatgpt_for_cc}
 
 I hereby confirm that the use of this article is compliant with all publishing agreements.
 
@@ -1037,8 +1102,8 @@ The survey is randomized such that the questions and answers appear in random or
              point meta=y,
              xticklabel style={
              align=center,
+             rotate=45,
              text width=2.0cm,
-              rotate=45,
              font=\small % Adjust the font size if desired
              },
              xticklabels={
@@ -1278,7 +1343,7 @@ It is not yet clear from where these improvements will come, but it is possible 
 
 
 \chapter{A Development and Teaching Framework for Codenames} 
-\label{codenames} 
+\label{chap:codenames} 
 
 I hereby confirm that the use of this article is compliant with all publishing agreements.
 
@@ -1533,6 +1598,7 @@ We have demonstrated the efficacy of this framework via a 25-student study in wh
 The Codenames framework presented herein will also benefit the CC research community, as demonstrated by the results of a code jam workshop at \emph{ICCC24}. It allows for rapid prototyping of new CC agents, simplifies the normally complex task of creative evaluation, and could serve to compare CC agent performance via direct competition. We foresee many benefits to expanded research in creative gameplay, which we hope our framework will help facilitate.
 
 \chapter{Is Prompt Engineering the Creativity Knob for Large Language Models?}
+\label{chap:cc_prompting}
 
 I hereby confirm that the use of this article is compliant with all publishing agreements.
 
@@ -2091,6 +2157,7 @@ Notably, R1’s chain-of-thought prompting produced diverse artifacts despite ge
 The primary purpose of this study is to evaluate the effectiveness of prompt engineering for controlling the creative abilities of language models. Our findings indicate that more sophisticated prompting techniques like OPRO and CoT do not produce artifacts of significantly higher quality, novelty, or creativity compared to basic prompting approaches. This suggests the need for the development of improved automatic evaluation for creative artifacts and prompting methods for creative tasks. These findings raise additional questions about the creative limitations of LLMs and suggest that creativity may be too complex a phenomenon to be effectively controlled by prompting alone.
 
 \chapter{Automatic Narrative Knowledge Base Generation}
+\label{chap:llmexica}
 
 I hereby confirm that the use of this article is compliant with all publishing agreements.
 
@@ -2511,6 +2578,7 @@ E a b -5 1
 \end{lstlisting}
 
 \chapter{A Reward-Driven Controller for Text Generation with Black-Box Language Models}
+\label{chap:bbc}
 
 This manuscript has not yet been accepted for publication.  
 
@@ -3010,6 +3078,7 @@ Calculating the reward, where the base language model generates a fixed length c
 Calculating the gradient for and updating the controller model parameters occurs in constant time with respect to the size of the dataset.
 
 \chapter{Conclusion}
+\label{chap:conclusion}
 
 Conclusion goes here.
 
