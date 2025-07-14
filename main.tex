@@ -18,6 +18,9 @@
 % allow import of papers as chapters in their final pdf form. 
 \usepackage{pdfpages} 
 
+% Package for strikethrough text (\sout command)
+\usepackage{ulem}
+
 % Bar chart drawing library
 \usepackage{pgfplots} 
 \pgfplotsset{compat=1.18}
@@ -93,6 +96,10 @@ legend image code/.code={
 % \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage{amsfonts}       % blackboard math symbols
+
+
+\newcommand{\dan}[1]{\textcolor{red}{[#1]}}
+\newcommand{\robert}[1]{\textcolor{blue}{[#1]}}
 
 
 
@@ -175,6 +182,26 @@ Lastly, I want to dedicate this dissertation to my children, Rosie and Forrest, 
 % Customize the name of the Table of Contents section.
 \renewcommand\contentsname{Table of Contents}
 
+% Reduce spacing in table of contents to prevent References from appearing alone on a page
+% Use titletoc package for more targeted spacing control without affecting formatting
+\usepackage{titletoc}
+\titlecontents{chapter}[0em]
+    {\vspace{0.25em}\bfseries}
+    {\thecontentslabel\quad}
+    {}
+    {\titlerule*[1pc]{.}\contentspage}
+
+\titlecontents{section}[1.5em]
+    {\vspace{0.1em}}
+    {\thecontentslabel\quad}
+    {}
+    {\titlerule*[1pc]{.}\contentspage}
+
+\titlecontents{subsection}[3em]
+    {\vspace{0.05em}}
+    {\thecontentslabel\quad}
+    {}
+    {\titlerule*[1pc]{.}\contentspage}
 % Remove all widows an orphans.  This is not normally recommended, but in a
 % paper dissertation there is no reasonable way around it; you can't exactly
 % rewrite already-published content to fix the problem.
@@ -203,7 +230,7 @@ Lastly, I want to dedicate this dissertation to my children, Rosie and Forrest, 
 
 Creativity lies at the heart of human intelligence.
 Wiggins observes that “the zenith of human intelligence is often portrayed as the ability to create…radically new and/or surprising things” and argues that creativity should be “a primary determiner of human intelligence” \cite{wiggins2006}.
-This is evidenced by the role human creativity plays in society by enabling artistic expression, generating new ideas, and solving complex problems across domains such as science, mathematics, and engineering.
+This \robert{primality} is evidenced by the role human creativity plays in society by enabling artistic expression, generating new ideas, and solving complex problems across domains such as science, mathematics, and engineering.
 While the personal and subjective nature of creativity makes it difficult to define in precise cognitive or scientific terms \cite{boden1990creativity,Cskszentmihlyi1996CreativityFA,wiggins2006creativity,Simonton2018DefiningCD}, it remains universally recognized and deeply valued as fundamental to the human experience.
 
 In computer science, the artificial intelligence (AI) research community attempts to develop machines capable of emulating human intelligence.
@@ -225,11 +252,11 @@ Topics include CC systems, evaluation methods, co-creative systems, and philosop
 Systems developed in this domain include those that generate jokes, paintings, recipes, short stories, and other creative artifacts.
 This dissertation also centers on language models, which are foundational to much of the recent progress in AI.
 A language model represents the structure of a language and can be used to perform various linguistic tasks.
-Formally, a statistical language model estimates the probability of a sequence of tokens, often via the chain rule:
+\sout{Formally, a statistical language model estimates the probability of a sequence of tokens, often via the chain rule:}
 
-\[
-f(X_n) = \prod_{t=1}^{n} p(x_t \mid x_{<t})
-\]
+% \[
+% f(X_n) = \prod_{t=1}^{n} p(x_t \mid x_{<t})
+% \]
 
 Early models such as n-grams and Markov chains evolved into neural approaches like LSTMs, and eventually into transformer-based architectures, which support large-scale parallelization and scaling.
 Transformers have since been trained to follow instructions and generate responses aligned with human preferences. 
@@ -274,16 +301,20 @@ In summary, creativity is a critical aspect of intelligence that requires target
 This dissertation contributes to that pursuit by proposing new tools, frameworks, and evaluation methods for modeling and assessing creativity in LLMs. 
 Ultimately, creative AI has the potential not only to replicate human ingenuity, but to amplify it by enabling new forms of self-expression and idea generation that would be impossible otherwise.
 
+\pagebreak
 
-\chapter{Symbolic Semantic Memory in Transformer Language Models} 
-\label{chap:ssm}
+I hereby confirm that the use of all of the articles in this document is compliant with all publishing agreements.
 
-I hereby confirm that the use of this article is compliant with all publishing agreements.
+
 
 \
 
 \noindent
 Robert Morain, Kenneth Vargas and Dan Ventura, ``Symbolic Semantic Memory in Transformer Language Models,'' IEEE International Conference on Machine Learning and Applications, 2022, pp. 992-998, doi: 10.1109/ICMLA55696.2022.00166. 
+
+
+\chapter{Symbolic Semantic Memory in Transformer Language Models} 
+\label{chap:ssm}
 
 
 % % Variables
