@@ -153,8 +153,7 @@ The dissertation develops novel architectural approaches including an external k
 Additionally, it presents a game-based development framework for creative agents and an automated knowledge extraction pipeline for story generation systems.
 Through comparative studies across multiple creative domains, this research provides empirical insights into the capabilities and limitations of LLMs in creative tasks. 
 The work establishes evaluation frameworks for comparing general-purpose LLMs against traditional computational creativity systems and develops methods for assessing the effectiveness of various prompting techniques in creative text generation. 
-\sout{These investigations reveal important findings about the current state of LLM creativity and identify fundamental challenges in creative evaluation.}
-\robert{These investigations show that LLM-generated creative artifacts are generally preferred over those from traditional CC systems, advanced prompting techniques (e.g., OPRO, chain-of-thought) do not significantly outperform basic prompting, and that LLM-based automatic evaluation is limited.}
+These investigations show that LLM-generated creative artifacts are generally preferred over those from traditional CC systems, advanced prompting techniques (e.g., OPRO, chain-of-thought) do not significantly outperform basic prompting, and that LLM-based automatic evaluation is limited.
 Finally, this work reflects on the advantages and limitations of enhancing LLM creativity and provides directions for future work.
 }
 
@@ -169,7 +168,7 @@ Above all, I would like to thank my wife, Emi, for her unfailing trust and belie
 For whatever small credit this work earns me, she is equally deserving, as this would not be possible without her.
 
 Thank you to my parents, siblings, and friends who have helped me so much along the way.
-I also need to express my gratitude toward all of my teachers throughout my entire education, especially my PhD advisor, Dr. Ventura.
+I also need to express my gratitude toward all of my teachers throughout my entire education, especially my PhD advisor, Dan Ventura.
 
 Lastly, I want to dedicate this dissertation to my children, Rosie and Forrest, who fill my life with so much joy! 
 
@@ -232,7 +231,7 @@ Lastly, I want to dedicate this dissertation to my children, Rosie and Forrest, 
 Creativity lies at the heart of human intelligence.
 Wiggins observes that “the zenith of human intelligence is often portrayed as the ability to create…radically new and/or surprising things” and argues that creativity should be “a primary determiner of human intelligence” \cite{wiggins2006}.
 This primality is evidenced by the role human creativity plays in society by enabling artistic expression, generating new ideas, and solving complex problems across domains such as science, mathematics, and engineering.
-While the personal and subjective nature of creativity makes it difficult to define in precise cognitive or scientific terms \cite{boden1990creativity,Cskszentmihlyi1996CreativityFA,wiggins2006creativity,Simonton2018DefiningCD}, it remains universally recognized and deeply valued as fundamental to the human experience.
+While the personal and subjective nature of creativity makes it difficult to define in precise cognitive or scientific terms \cite{boden92,Cskszentmihlyi1996CreativityFA,wiggins2006creativity,Simonton2018DefiningCD}, it remains universally recognized and deeply valued as fundamental to the human experience.
 
 In computer science, the artificial intelligence (AI) research community attempts to develop machines capable of emulating human intelligence.
 Through machine learning, models can process data and perform well-defined tasks, many of which were once considered exclusive to humans.
@@ -253,7 +252,6 @@ Topics include CC systems, evaluation methods, co-creative systems, and philosop
 Systems developed in this domain include those that generate jokes, paintings, recipes, short stories, and other creative artifacts.
 This dissertation also centers on language models, which are foundational to much of the recent progress in AI.
 A language model represents the structure of a language and can be used to perform various linguistic tasks.
-\sout{Formally, a statistical language model estimates the probability of a sequence of tokens, often via the chain rule:}
 
 % \[
 % f(X_n) = \prod_{t=1}^{n} p(x_t \mid x_{<t})
@@ -893,6 +891,7 @@ Although these benchmark methods rely on internal model features---giving them a
 The results of these experiments demonstrate that the black-box controller is moderately effective for an LLM without sacrificing generation fluency.
 With a sentiment control test accuracy of \sentimentcontroltestaccuracy{}, the controller outperforms CTRL and PPLM, while outperforming all baselines in terms of fluency.
 The controller outperforms PPLM, GeDI, and DEXPERT on the toxicity avoidance task in average max toxicity and fluency.
+Code for this paper is available on GitHub\footnote{\url{https://github.com/rmorain/bbc}}.
 %See Section \ref{experiments} for more details.
 
 %As the dependence on remotely accessed LLMs continues to grow, there is a clear opportunity to develop CTG methods that are accessible and effective within users’ access constraints.  Although prompt engineering methods remain popular and valuable, they must be evaluated against the criteria outlined in this paper to ensure their practical utility.  When adapted accordingly, as demonstrated by our black-box controller, model-prompt-based methods are well-positioned to play an increasingly important role in CTG as LLMs are deployed in more complex and diverse real-world applications.
@@ -2030,18 +2029,17 @@ The survey is randomized such that the questions and answers appear in random or
 
 \section{Results}
 
-
 \begin{figure}[t]
 \centering
 
-\resizebox{0.5\columnwidth}{!}{%
+\resizebox{0.75\columnwidth}{!}{%
 \begin{tikzpicture}
 \begin{axis}[ybar,
             ylabel={Percentage of votes},
              ymin=0,
-            width=0.5\columnwidth,
+            width=0.7\columnwidth,
              enlarge x limits={abs=1},
-             x={2cm},
+             x={2.5cm},
              xtick={1,2,3},
              point meta=y,
              xticklabel style={align=center},
@@ -2066,39 +2064,6 @@ The survey is randomized such that the questions and answers appear in random or
 \caption[Overall preferences]{Reviewers' preferences in a one-to-one comparison between CC system generated artifacts and corresponding ChatGPT generated artifacts. These votes are aggregated across all domains and systems.}
     \label{fig:overall_preferences}
 \end{figure}
-
-
-\begin{figure}[t]
-\centering
-\resizebox{0.5\columnwidth}{!}{%
-\begin{tikzpicture}
-\begin{axis}[ybar,
-            ylabel={Mean Likert scale score},
-            width=0.5\columnwidth,
-             ymin=1,
-             ymax=5,
-             enlarge x limits={abs=1},
-             x={2cm},
-             xtick={1,2},
-             point meta=y,
-             nodes near coords style={/pgf/number format/precision=3,
-             /pgf/number format/fixed},
-             xticklabel style={align=center},
-             xticklabels={CC system, ChatGPT},
-             tick style={draw=none},
-             ymajorgrids=true,
-            ]
-
-    \addplot[ybar, fill=airforceblue, bar width=0.8, bar shift=0pt, error bars/.cd, y dir=both, y explicit] coordinates {(1,2.798333333) +- (1.164444444, 1.164444444)};
-    \addplot[ybar, fill=darkmidnightblue, bar width=0.8, bar shift=0pt, error bars/.cd, y dir=both, y explicit] coordinates{(2,3.301111111) +- (1.136111111, 1.136111111)};
-\end{axis}
-\end{tikzpicture}
-}
-\caption[Overall characteristics]{Characteristic evaluation of generated artifacts aggregated across all domains and systems.}
-    \label{fig:overall_characteristics}
-\end{figure}
-
-
 
 \begin{figure}[t]
 \centering
