@@ -161,8 +161,10 @@ Finally, this work reflects on the advantages and limitations of enhancing LLM c
     computational creativity, language model, controllable text generation, knowledge integration, prompt engineering
 }
 
+
 \acknowledgments{
 
+\pdfbookmark[1]{Acknowledgments}{acknowledgments}
 There are countless people to whom I am deeply indebted for their support throughout my education and especially this PhD journey.
 Above all, I would like to thank my wife, Emi, for her unfailing trust and belief in me. 
 For whatever small credit this work earns me, she is equally deserving, as this would not be possible without her.
@@ -332,12 +334,8 @@ Robert Morain and Dan Ventura, ``Is Prompt Engineering the Creativity Knob for L
 
 \
 
-This manuscript is under review at the \textit{International Conference on Machine Learning and Applications}.  
-
-\
-
 \noindent
-Robert Morain and Dan Ventura, ``A Reward-Driven Controller for Text Generation with Black-Box Language Models'', 2025
+Robert Morain and Dan Ventura, ``A Reward-Driven Controller for Text Generation with Black-Box Language Models'', \textit{Proceedings of the International Conference on Machine Learning and Applications}, to appear, 2025
 
 
 \chapter{Symbolic Semantic Memory in Transformer Language Models} 
@@ -444,7 +442,7 @@ Once the entire dataset is augmented, it is ready to be used for training the kn
 The WikiText-103 dataset \cite{merity2016pointer} is used to train each of the models. 
 After removing rows with no entities in the knowledge base, this dataset consists of a split with 628,965 (99.8\%) training rows and 1,320 (0.2\%) validation rows\footnote{These are standard splits from Huggingface's datasets library at \url{https://huggingface.co/datasets/wikitext}}. 
 The WikiText language modeling dataset is a collection of over 100 million tokens extracted from the set of verified Good and Featured articles on Wikipedia. 
-It makes sense to use this dataset for fine-tuning GPT-2 because WebText excludes Wikipedia articles from it's training dataset \cite{radford2019language}.
+It makes sense to use this dataset for fine-tuning GPT-2 because WebText excludes Wikipedia articles from the training dataset \cite{radford2019language}.
 
 \textbf{Knowledge base:}
 Wikidata \cite{vrandecic2014wikidata} is a free and open knowledge base of structured \cite{cafarella2011structureddata} Wikimedia data.
@@ -837,20 +835,20 @@ Code for this work is available at \url{https://github.com/rmorain/symbolic_sema
 \label{chap:bbc}
 
 \begin{abstract}
-%As the primary means of interaction with pretrained language models shifts from local to remote connection, access to fundamental model features such as token embeddings, hidden states, and output probabilities have become restricted. These restrictions reduce the viability of established controllable text generation methods for large language models.To address this, w
-We propose methods for a black-box controller that steers a base language model to generate text possessing a target attribute without relying on any features from the base model.
+As the primary means of interaction with pretrained language models shifts from local to remote connection, access to fundamental model features such as token embeddings, hidden states, and output probabilities have become restricted. These restrictions reduce the viability of established controllable text generation methods for large language models. To address this, we propose methods for a black-box controller that steers a base language model to generate text possessing a target attribute without relying on any features from the base model.
 The black-box controller is a pretrained language model fine-tuned using Proximal Policy Optimization to generate a control prefix to guide the generation of a base language model.
 The controller is evaluated on sentiment control and toxicity avoidance tasks.
 The results show that the black-box controller is comparable to other controllable text generation baselines in terms of accuracy and diversity of generated text while maintaining high fluency.
 This is achieved despite treating the base language model as a black-box, with only text input and text output interaction.
 \end{abstract}
 
+
 \section{Introduction}
 \label{introduction}
 
-% The rapid advancement of large language models (LLMs) in natural language understanding and generation tasks \cite{brown2020gpt3, touvron2023llama, ziegler2019preferences, ouyang2022rlhf, deepseek2025r1} raises many important questions about how to effectively interact with and control these increasingly powerful and popular models.
-% The convenience and popularity of closed-source models mean that most users interact with LLMs through web applications or APIs, while local access to full-scale models is limited to well-funded institutions, researchers, and hobbyists.
-% It is important to consider what kind of access users have to a model when developing methods to help users interact with LLMs more effectively.
+The rapid advancement of large language models (LLMs) in natural language understanding and generation tasks \cite{brown2020gpt3, touvron2023llama, ziegler2019preferences, ouyang2022rlhf, deepseek2025r1} raises many important questions about how to effectively interact with and control these increasingly powerful and popular models.
+The convenience and popularity of closed-source models mean that most users interact with LLMs through web applications or APIs, while local access to full-scale models is limited to well-funded institutions, researchers, and hobbyists.
+It is important to consider what kind of access users have to a model when developing methods to help users interact with LLMs more effectively.
 
 Controllable text generation (CTG) refers to the task of generating text that satisfies given conditions or constraints \cite{zhang2023survey}. 
 A typical CTG system consists of a control condition (such as positive sentiment), a prompt, and an LLM responsible for generating a prompt continuation that satisfies the control condition.
@@ -891,7 +889,7 @@ Although these benchmark methods rely on internal model features---giving them a
 The results of these experiments demonstrate that the black-box controller is moderately effective for an LLM without sacrificing generation fluency.
 With a sentiment control test accuracy of \sentimentcontroltestaccuracy{}, the controller outperforms CTRL and PPLM, while outperforming all baselines in terms of fluency.
 The controller outperforms PPLM, GeDI, and DEXPERT on the toxicity avoidance task in average max toxicity and fluency.
-Code for this paper is available on GitHub\footnote{\url{https://github.com/rmorain/bbc}}.
+Code for this paper is available on GitHub.\footnote{\url{https://github.com/rmorain/bbc}}
 %See Section \ref{experiments} for more details.
 
 %As the dependence on remotely accessed LLMs continues to grow, there is a clear opportunity to develop CTG methods that are accessible and effective within users’ access constraints.  Although prompt engineering methods remain popular and valuable, they must be evaluated against the criteria outlined in this paper to ensure their practical utility.  When adapted accordingly, as demonstrated by our black-box controller, model-prompt-based methods are well-positioned to play an increasingly important role in CTG as LLMs are deployed in more complex and diverse real-world applications.
@@ -900,76 +898,106 @@ Code for this paper is available on GitHub\footnote{\url{https://github.com/rmor
 \begin{figure}[t!]
     \centering
     \includegraphics[width=\linewidth]{images/bbc/system_diagram_value_head.png}\vspace{-10pt}
-    \caption[System diagram with value head]{Diagram of the black-box controller training process. The controller is initialized as a pretrained language model (e.g. GPT-2). Conditioned on a prompt and a control instruction (e.g. "Sentiment: positive"), the controller generates a prefix to steer the generation of a base language model. The controller model is fine-tuned via Proximal Policy Optimization to optimize rewards computed by a reward model, which evaluates prompt/continuation pairs based on how well they satisfy a target control attribute. The parameters of the base language model are frozen.}
+    \caption[Controller training]{Diagram of the black-box controller training process. The controller is initialized as a pretrained language model (e.g. GPT-2). Conditioned on a prompt and a control instruction (e.g. ``Sentiment: positive"), the controller generates a prefix to steer the generation of a base language model. The controller model is fine-tuned via Proximal Policy Optimization to optimize rewards computed by a reward model, which evaluates prompt/continuation pairs based on how well they satisfy a target control attribute. The parameters of the base language model are frozen.}
     \label{fig:system_diagram}
 \end{figure}
 
-% \section{Related work}
-% \label{related_work}
+% % \section{Related work}
+% % \label{related_work}
 
-% This section summarizes a selection of recent established CTG approaches used as baselines in this paper.
-% For a more comprehensive review of CTG tasks and methods, see \cite{zhang2023survey}.
+% % This section summarizes a selection of recent established CTG approaches used as baselines in this paper.
+% % For a more comprehensive review of CTG tasks and methods, see \cite{zhang2023survey}.
 
-% \cite{keskar2019ctrl} introduce CTRL, a conditional transformer-based language model.
-% While traditional language models are trained to compute \(p(x)\) where \(x = (x_1, x_2, \ldots, x_n)\) is a sequence of symbols, CTRL  computes \(p(x | c)\) where \(c\) is a control code.
-% A control code is a sequence prepended to the input prompt and is intended to control for a specific attribute such as style or content.
-% CTRL does not control a base model, rather it is a base model pretrained for controllable text generation.
+% % \cite{keskar2019ctrl} introduce CTRL, a conditional transformer-based language model.
+% % While traditional language models are trained to compute \(p(x)\) where \(x = (x_1, x_2, \ldots, x_n)\) is a sequence of symbols, CTRL  computes \(p(x | c)\) where \(c\) is a control code.
+% % A control code is a sequence prepended to the input prompt and is intended to control for a specific attribute such as style or content.
+% % CTRL does not control a base model, rather it is a base model pretrained for controllable text generation.
 
-% The Plug and Play Language Model (PPLM) \cite{dathathri2020plug} relies on an attribute discriminator to guide the text generation of a base language model.
-% The attribute discriminator computes \(p(a | x)\) where \(a\) is a desired attribute.
-% To steer generation toward an attribute, the key-value pairs from the base model are updated to increase the log-likelihood of \(p(a | x)\).
-% This requires full access to the base model.
+% % The Plug and Play Language Model (PPLM) \cite{dathathri2020plug} relies on an attribute discriminator to guide the text generation of a base language model.
+% % The attribute discriminator computes \(p(a | x)\) where \(a\) is a desired attribute.
+% % To steer generation toward an attribute, the key-value pairs from the base model are updated to increase the log-likelihood of \(p(a | x)\).
+% % This requires full access to the base model.
 
-% \cite{krause2021gedi} introduce GeDi, which uses a conditional language model trained with control codes to guide the generation of a base language model. 
-% A conditional language model computes \(p(x | c)\) and \(p(x | \bar{c})\) where \(c\) is a control code and \(\bar{c}\) is an anti-control code.
-% Plugging these values into Bayes' theorem allows for efficient computation of \(p(c | x)\) and sampling from \(p(x | c) \propto p(x) p(c | x)\).
-% GeDi requires access to a base language model's output probabilities.
+% % \cite{krause2021gedi} introduce GeDi, which uses a conditional language model trained with control codes to guide the generation of a base language model. 
+% % A conditional language model computes \(p(x | c)\) and \(p(x | \bar{c})\) where \(c\) is a control code and \(\bar{c}\) is an anti-control code.
+% % Plugging these values into Bayes' theorem allows for efficient computation of \(p(c | x)\) and sampling from \(p(x | c) \propto p(x) p(c | x)\).
+% % GeDi requires access to a base language model's output probabilities.
 
-% \cite{liu2021dexpert} fine-tune expert and anti-expert models to modify the output probabilities of a base language model to control for a particular attribute.
-% This approach also requires access to a base language model's output probabilities.
+% % \cite{liu2021dexpert} fine-tune expert and anti-expert models to modify the output probabilities of a base language model to control for a particular attribute.
+% % This approach also requires access to a base language model's output probabilities.
 
-% \cite{zhang2022discup} introduce DisCup, a prompt tuning method similar to \cite{li2021prefix} for controllable text generation. 
-% A prefix of virtual tokens is trained to steer a base language model to generate text that possesses an attribute. 
-% Training the prefix matrix requires full access to the base model.
+% % \cite{zhang2022discup} introduce DisCup, a prompt tuning method similar to \cite{li2021prefix} for controllable text generation. 
+% % A prefix of virtual tokens is trained to steer a base language model to generate text that possesses an attribute. 
+% % Training the prefix matrix requires full access to the base model.
 
-% The Residual Memory Transformer \cite{zhang2023rmt} steers the generation of a base language model to satisfy a control instruction.
-% This steering is accomplished by adding the output of the Residual Memory Transformer to the base model's prediction.
-% This approach requires access to a base language model's token embeddings, hidden states, and output probabilities. 
+% % The Residual Memory Transformer \cite{zhang2023rmt} steers the generation of a base language model to satisfy a control instruction.
+% % This steering is accomplished by adding the output of the Residual Memory Transformer to the base model's prediction.
+% % This approach requires access to a base language model's token embeddings, hidden states, and output probabilities. 
 
-% \cite{ziegler2019preferences} demonstrate methods for fine-tuning a language model using reinforcement learning.
-% A pretrained language model acts as the policy and a reward model trained to assign scores to text based on human preference data acts as the reward function.
-% The policy is trained to maximize the expected reward using Proximal Policy Optimization \cite{schulman2017ppo}.
-% Directly fine-tuning a language model with these methods requires full access to the base model.
+% % \cite{ziegler2019preferences} demonstrate methods for fine-tuning a language model using reinforcement learning.
+% % A pretrained language model acts as the policy and a reward model trained to assign scores to text based on human preference data acts as the reward function.
+% % The policy is trained to maximize the expected reward using Proximal Policy Optimization \cite{schulman2017ppo}.
+% % Directly fine-tuning a language model with these methods requires full access to the base model.
 
-% \cite{qian-etal-2022-controllable} introduce a contrastive learning approach to training a prefix of virtual tokens for controllable text generation.
-% Unlike \cite{li2021prefix} which trains prefixes independently, these methods train multiple prefixes simultaneously using supervised and unsupervised approaches that consider relationships between attributes. 
-% While these methods freeze the weights of the base language model during training, they require full access to the model in order to train and provide virtual tokens as input.
+% % \cite{qian-etal-2022-controllable} introduce a contrastive learning approach to training a prefix of virtual tokens for controllable text generation.
+% % Unlike \cite{li2021prefix} which trains prefixes independently, these methods train multiple prefixes simultaneously using supervised and unsupervised approaches that consider relationships between attributes. 
+% % While these methods freeze the weights of the base language model during training, they require full access to the model in order to train and provide virtual tokens as input.
 
-% \cite{deng-etal-2022-rlprompt} develop methods to train a language model to generate a prompt to improve performance on a task using reinforcement learning.
-% These methods do not require any access to the base language model and treats it as a black box.
-% However, this work is positioned as an approach to automatic prompt generation similar to \cite{shin2020autoprompt}. 
-% Therefore, these methods are not developed sufficiently for controllable text generation.
+% % \cite{deng-etal-2022-rlprompt} develop methods to train a language model to generate a prompt to improve performance on a task using reinforcement learning.
+% % These methods do not require any access to the base language model and treats it as a black box.
+% % However, this work is positioned as an approach to automatic prompt generation similar to \cite{shin2020autoprompt}. 
+% % Therefore, these methods are not developed sufficiently for controllable text generation.
 
 
 \section{Methods}
 \label{methods}
 
-\begin{algorithm}[t]
-\caption{Sequence Generation Using a Statistical Language Model}
+% \begin{algorithm*}[t!]
+% \caption{\textsc{Sequence generation using a statistical language model}}
+% \label{alg:generate}
+% \begin{algorithmic}
+%     \State \textbf{Input:} language model \(p_\theta\), sequence of symbols \(\mathbf{x}_n = (x_1, \ldots, x_n)\), vocabulary \(w \in \mathcal{V}\), number of symbols to generate \(m\)
+%     \State \textbf{Output:}  continuation of sequence \(\mathbf{y}_m\)
+%     \Procedure{generate}{$p_\theta, \mathbf{x}_n, \mathcal{V}, m$} 
+%     \State \(\mathbf{y_0} = ()\) \Comment{Initialize empty sequence}
+%     \For{\(i=1, 2, \ldots m\)}
+%         \State \(\mathbf{p} = [p_\theta(y_i =w_1 \mid \mathbf{x}_n, \mathbf{y}_{i-1}), \ldots, p_\theta(y_i=w_{|\mathcal{V}|} \mid \mathbf{x}_n, \mathbf{y}_{i-1})]\) \Comment{Distribution over vocab}
+%         \State \(y_i \sim \mathbf{p}\) \Comment{Sample next symbol}
+%         \State \(\mathbf{y}_i = \mathbf{y}_{i-1} \oplus y_i\) \Comment{Extend \(\mathbf{y}\)}
+%     \EndFor
+%     \State \Return \(\mathbf{y}_m\)
+%     \EndProcedure
+% \end{algorithmic}
+% \end{algorithm*}
+
+\begin{algorithm*}[t!]
+\caption{\textsc{Sequence generation using a statistical language model}}
 \label{alg:generate}
 \SetAlgoLined
 \DontPrintSemicolon
-\KwIn{Language model $p_\theta$, input sequence $\mathbf{x}_n = (x_1, \ldots, x_n)$, vocabulary $\mathcal{V}$, number of symbols to generate $m$}
-\KwOut{Continuation sequence $\mathbf{y}_m$}
+\KwIn{language model $p_\theta$, sequence of symbols $\mathbf{x}_n = (x_1, \ldots, x_n)$, 
+      vocabulary set $\mathcal{V}$, number of symbols to generate $m$}
+\KwOut{continuation of sequence $\mathbf{y}_m$}
+\SetKwProg{Fn}{Function}{}{}
 
-$\mathbf{y}_0 \leftarrow ()$ \tcp*{Initialize empty sequence}
-\For{$i \leftarrow 1$ \KwTo $m$}{
-    $\mathbf{p} \leftarrow [p_\theta(y_i = w_1 \mid \mathbf{x}_n, \mathbf{y}_{i-1}), \ldots, p_\theta(y_i = w_{|\mathcal{V}|} \mid \mathbf{x}_n, \mathbf{y}_{i-1})]$ \tcp*{Distribution over vocab}
-    $y_i \sim \mathbf{p}$ \tcp*{Sample next symbol}
-    $\mathbf{y}_i \leftarrow \mathbf{y}_{i-1} \oplus y_i$ \tcp*{Extend sequence}
+\Fn{generate}{
+    \tcp{Initialize empty sequence}
+    $\mathbf{y}_0 \leftarrow ()$\; 
+    \For{$i=1$ \KwTo $m$}{
+        \tcp{Distribution over vocabulary}
+        $\mathbf{p} \leftarrow 
+        \big[p_\theta(y_i=w_1 \mid \mathbf{x}_n, \mathbf{y}_{i-1}), \ldots, 
+        p_\theta(y_i=w_{|\mathcal{V}|} \mid \mathbf{x}_n, \mathbf{y}_{i-1})\big]$\;
+
+        \tcp{Sample next symbol}
+        $y_i \sim \mathbf{p}$\; 
+        \tcp{Extend $\mathbf{y}$}
+        $\mathbf{y}_i \leftarrow \mathbf{y}_{i-1} \oplus y_i$\; 
+    }
+    \KwRet $\mathbf{y}_m$\;
 }
-\Return $\mathbf{y}_m$\;
-\end{algorithm}
+\end{algorithm*}
+
 
  A causal statistical language model can be represented by 
 
@@ -1012,18 +1040,18 @@ A reward model \(r_\psi(X, Y)\) defines the distribution:
 
 The reward model is task specific. For example, in a sentiment control task, the reward model could be a sentiment classifier with the target class probability as the reward.
 
-% \begin{algorithm}[t]
-% \caption{\textsc{Prefix generation reward function}}
-% \label{alg:reward}
-% \begin{algorithmic}
-%     \State \textbf{Input:} language model \(p\), sentiment classifier \(f\), prefix \(\mathbf{a}_k\), prompt \(\mathbf{x}_n\), target sentiment \(t\), vocabulary \(V\), generation length \(l\)
-%     \State \textbf{Output:} score \(s\)
-%     \State \(\mathbf{b}'_l = \textrm{generate}(p, \mathbf{x}_n, V, l)\) \Comment{Baseline continuation with no prefix}
-%     \State \(\mathbf{b}_l = \textrm{generate}(p, \mathbf{a}_n \oplus \mathbf{x}_n, V, l)\) \Comment{Continuation with prefix}
-%     \State \(r = f(\mathbf{b}_l, t) - f(\mathbf{b}'_l, t)\) \Comment{Reward is improvement over baseline for target class}\dan{I thought you changed the reward away from this?}
-%     \State \Return \(r\)
-% \end{algorithmic}
-% \end{algorithm}
+% % \begin{algorithm}[t]
+% % \caption{\textsc{Prefix generation reward function}}
+% % \label{alg:reward}
+% % \begin{algorithmic}
+% %     \State \textbf{Input:} language model \(p\), sentiment classifier \(f\), prefix \(\mathbf{a}_k\), prompt \(\mathbf{x}_n\), target sentiment \(t\), vocabulary \(V\), generation length \(l\)
+% %     \State \textbf{Output:} score \(s\)
+% %     \State \(\mathbf{b}'_l = \textrm{generate}(p, \mathbf{x}_n, V, l)\) \Comment{Baseline continuation with no prefix}
+% %     \State \(\mathbf{b}_l = \textrm{generate}(p, \mathbf{a}_n \oplus \mathbf{x}_n, V, l)\) \Comment{Continuation with prefix}
+% %     \State \(r = f(\mathbf{b}_l, t) - f(\mathbf{b}'_l, t)\) \Comment{Reward is improvement over baseline for target class}\dan{I thought you changed the reward away from this?}
+% %     \State \Return \(r\)
+% % \end{algorithmic}
+% % \end{algorithm}
 
 A value network \(g_\xi : \mathcal{V}^{s+n} \rightarrow \mathbb{R}^{s+n}\) is used to predict the expected return of a prefix and its associated prompt such that \(g_\xi(\mathbf{a}_s \oplus \mathbf{x}_n) = \mathbf{r}_{s+n}\) where \(\mathbf{r}_{s+n}\) is a reward vector.
 A neural implementation of the black-box controller \(q_\phi\) can possess an additional value head that predicts the value of a sequence so that \(q_\phi\) also implements \(g_\xi\). The value head is a linear layer of size \((1, d)\) where \(d\) is the output dimension of \(q_\phi\)\cite{vonwerra2022trl}.
@@ -1055,23 +1083,23 @@ The controller model generates a prefix with a maximum length of 15 tokens and i
 Sentiment-controlled generation refers to the act of generating text that exhibits a target sentiment.
 For this experiment, the controller must generate a prefix to steer a base language model to generate either positive or negative text.
 
-The training dataset consists of the widely used SST-2 dataset \footnote{\href{https://huggingface.co/datasets/stanfordnlp/sst2}{No license available}} 
-\cite{socher2013sst5} as well as a dataset of IMDB movie reviews \footnote{\href{https://huggingface.co/datasets/stanfordnlp/imdb}{No license available}} 
+The training dataset consists of the widely used SST-2 dataset %\footnote{\href{https://huggingface.co/datasets/stanfordnlp/sst2}{No license available}} 
+\cite{socher2013sst5} as well as a dataset of IMDB movie reviews %\footnote{\href{https://huggingface.co/datasets/stanfordnlp/imdb}{No license available}} 
 \cite{maas2011imdb}.
 The combined and balanced dataset contains 110k examples of text that demonstrate a variety of sentiments labelled as either positive or negative.
 While the black-box controller does not require labeled data, the labels help train the controller more efficiently for this task because rather than selecting the target randomly, the target can be chosen to be opposite of an example's sentiment label.
 Following \cite{liu2021dexpert}, only the first $2-8$ tokens of an example are sample uniformly as a prompt. A control instruction is created using a template provided by \cite{zhang2023rmt} as \break ``Sentiment: \{TARGET SENTIMENT\}".
 
-The test dataset \footnote{\href{https://skylion007.github.io/OpenWebTextCorpus/}{Custom license}} 
+The test dataset %\footnote{\href{https://skylion007.github.io/OpenWebTextCorpus/}{Custom license}} 
 created by \cite{liu2021dexpert} consists of 5K neutral prompts, 2.5K negative prompts, and 2.5K positive prompts taken from the OpenWebText Corpus \cite{Gokaslan2019OpenWeb}. 
 When generated from 25 times, neutral prompts resulted in 12 or 13 positive continuations, negative prompts resulted in 25 negative continuations, and positive prompts led to 24 or 25 positive continuations as classified by Hugging Face's sentiment analysis classifier \cite{wolf2020huggingface}.
 The test set uses the entire data set sequence as the prompt.
 
-The controller is initialized as a pretrained GPT-2 \footnote{\href{https://huggingface.co/openai-community/gpt2}{MIT license}} 
+The controller is initialized as a pretrained GPT-2 %\footnote{\href{https://huggingface.co/openai-community/gpt2}{MIT license}} 
 model with a pretrained GPT-2 large model as the base language model \cite{radford2019gpt2}.
 The experiment is performed for three sizes of GPT-2 (small, medium, and large).
 The reward model is Hugging Face's default sentiment analysis classifier which is a DistilBert model 
-\footnote{\href{https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english}{Apache 2.0 license}} 
+%\footnote{\href{https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english}{Apache 2.0 license}} 
 \cite{sanh2019distilbert} fine-tuned on SST-2.
 The controller is fine-tuned on the training set until convergence, which takes five epochs.
 
@@ -1166,23 +1194,23 @@ However, because the sequences are not required to be fluent, it is unlikely tha
 
 \subsection{Toxicity avoidance}
 
-The toxicity avoidance task involves minimizing the amount of toxicity in generated text. According to the Perspective API \footnote{\href{https://github.com/conversationai/perspectiveapi}{https://github.com/conversationai/perspectiveapi}}
+The toxicity avoidance task involves minimizing the amount of toxicity in generated text. According to the Perspective API%\footnote{\href{https://github.com/conversationai/perspectiveapi}{https://github.com/conversationai/perspectiveapi}}
 , toxic text is ``a rude, disrespectful, or unreasonable comment that is likely to make you leave a discussion".
 To do this, the controller generates a prefix to decrease the likelihood of generating a toxic continuation from a potentially toxic prompt.
 
-The training dataset for this task comes from the Jigsaw unintended bias Kaggle challenge \footnote{\href{https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification/rules}{Custom license}}
+The training dataset for this task comes from the Jigsaw unintended bias Kaggle challenge%\footnote{\href{https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification/rules}{Custom license}}
 , which consists of examples of toxic comments from across the internet along with toxicity scores as labels. 
 For this experiment, the dataset is filtered to only contain prompts with a toxicity score greater than 0.5. 
 As in the sentiment control task, only the first $2-8$ tokens of each example are selected for the prompt. 
 This experiment does not require a control instruction because the target is always to reduce the toxicity of the generated text.
 
-Following \cite{liu2021dexpert}, the test dataset consists of 10K non-toxic random samples from the RealToxicity dataset \footnote{\href{https://huggingface.co/datasets/allenai/real-toxicity-prompts}{Apache 2.0 license}} 
+Following \cite{liu2021dexpert}, the test dataset consists of 10K non-toxic random samples from the RealToxicity dataset %\footnote{\href{https://huggingface.co/datasets/allenai/real-toxicity-prompts}{Apache 2.0 license}} 
 \cite{gehman2020toxicity}. 
 These samples are non-toxic in that they have a toxicity score of less than 0.5.
 This test dataset is designed to evaluate the problem of toxic degeneration \cite{sheng2019bias} where a user might unexpectedly receive harmful output from a model.
 
 As in the sentiment control experiment, the controller model is initialized as a pretrained GPT-2 small model, and the base language model is a pretrained GPT-2 large model. 
-The reward model is a toxicity prediction model called Detoxify \footnote{\href{https://github.com/unitaryai/detoxify/blob/master/LICENSE}{Apache 2.0 license}}
+The reward model is a toxicity prediction model called Detoxify %\footnote{\href{https://github.com/unitaryai/detoxify/blob/master/LICENSE}{Apache 2.0 license}}
 \cite{hanu2020detoxify}. 
 %The Detoxify model is used because the high performance computer used in these experiments does not have internet access and the Perspective API\footnote{\href{https://github.com/conversationai/perspectiveapi}{https://github.com/conversationai/perspectiveapi}} model is not available for local use. 
 
@@ -1252,8 +1280,7 @@ These results show that the black-box controller closely trails faster baselines
 \label{discussion}
 
 Analysis of both the sentiment control and toxicity avoidance results indicates that the black-box controller is a viable alternative to established CTG and simple prompt engineering methods.
-Despite the severity of the constraints imposed by treating the base model as a black box, these black-box controller methods achieve performance on par with some white-box approaches.
-The black-box controller also demonstrates improved fluency compared to all of the other baselines. 
+Despite the severity of the constraints imposed by treating the base model as a black box, these black-box controller methods achieve performance on par with some white-box approaches and also demonstrate improved fluency compared to all of the other baselines. 
 
 While these methods are not evaluated on black-box models accessed via API, they are evaluated on Llama 3.1 8B as a proxy for large closed-source models.
 The results show that these methods scale to models significantly larger than GPT-2 large.
@@ -1272,6 +1299,46 @@ Because of the multimodal data, it is difficult to decide how to represent the e
 It is also difficult to train a model to the encode the data without access to internal model features often hidden behind an API.
 Another obstacle is the lack of labeled multimodal datasets to build general representations.
 These black-box controller methods address all of these issues by training a model to encode external data based on a reward base signal.
+
+\subsection{Broader impacts and ethical considerations}
+
+The methods contained in this paper are intended to reliably, effectively, and easily influence open and closed-source LLMs. 
+Abuse of these methods may result in negative social impacts and result in harm.
+Already prone to harmful bias \cite{sheng2019bias}, these methods may be used to exacerbate the generation of offensive text.
+
+To mitigate risks of misuse, we recommend that researchers training black-box controllers on new tasks refrain from developing models explicitly aimed at generating harmful text.
+If such controllers are developed, we recommend that distributors not host such models.
+Researchers interested in safeguarding against bad actors using this technology may explore methods for identifying potentially nefarious prefixes and prompts.
+Toxicity classifiers such as the Perspective API may also be used to filter offensive generations.
+
+In the course of developing these methods, additional compute resources were used in failed experiments and hyperparameter tuning.
+
+\section{Conclusion}
+\label{conclusion}
+
+As the primary means of interaction with LLMs shifts from local to remote connection, access to fundamental model features such as token embeddings, hidden states, and output probabilities have become restricted.
+Limiting access to model features directly impacts the viability of many methods for interacting with and controlling LLMs and prompt engineering methods require adaptation to CTG tasks.
+To address this, we propose methods for guiding the generated text of a base language model by way of a black-box controller.
+Unlike established CTG methods, the controller does not rely on any internal model features.
+Instead, the controller is trained using reinforcement learning to maximize rewards computed by an attribute discriminator.
+
+The controller is evaluated on sentiment control and toxicity avoidance tasks.
+Results show that the black-box controller performs comparably to CTG baselines that rely on varying degrees of access to internal model features.
+Its ability to achieve strong performance despite operating under stricter access constraints—reflecting real-world user limitations—highlights the promise of black-box CTG methods as a viable and accessible alternative.
+
+\section{Limitations}
+\label{limitations}
+
+These experiments do not evaluate the effect the black-box controller has on the topic of generated text when topic is not the control attribute.
+In our experience, the topic of the continuation may be affected by the prefix when the prompt is topically neutral.
+
+A controller trained for a particular model is not expected to control another model.
+For now, a controller must be trained on a single task for a single base language model.
+
+In terms of computational efficiency, the methods for training the black-box controller scale linearly with respect to dataset size.
+The black-box controller generates a fixed length prefix in constant time.
+Calculating the reward, where the base language model generates a fixed length continuation that is evaluated by the reward model, is computed in constant time.
+Calculating the gradient for and updating the controller model parameters occurs in constant time with respect to the size of the dataset.
 
 \chapter{A Development and Teaching Framework for Codenames} 
 \label{chap:codenames} 
@@ -2242,6 +2309,35 @@ The survey is randomized such that the questions and answers appear in random or
 }
 \caption[System preferences]{Reviewers' preferences broken down by the system that generated each artifact.}
     \label{fig:system_preferences}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[ybar,
+            ylabel={Mean Likert scale score},
+            width=0.3\columnwidth,
+            height=0.3\columnwidth,
+             ymin=1,
+             ymax=5,
+             enlarge x limits={abs=1},
+             x={2cm},
+             xtick={1,2},
+             point meta=y,
+             nodes near coords style={/pgf/number format/precision=3,
+             /pgf/number format/fixed},
+             xticklabel style={align=center},
+             xticklabels={CC system, ChatGPT},
+             tick style={draw=none},
+             ymajorgrids=true,
+            ]
+
+    \addplot[ybar, fill=airforceblue, bar width=0.8, bar shift=0pt, error bars/.cd, y dir=both, y explicit] coordinates {(1,2.798333333) +- (1.164444444, 1.164444444)};
+    \addplot[ybar, fill=darkmidnightblue, bar width=0.8, bar shift=0pt, error bars/.cd, y dir=both, y explicit] coordinates{(2,3.301111111) +- (1.136111111, 1.136111111)};
+\end{axis}
+\end{tikzpicture}
+\caption[Characterstic evaluation]{Characteristic evaluation of generated artifacts aggregated across all domains and systems.}
+    \label{fig:overall_characteristics}
 \end{figure}
 
 
